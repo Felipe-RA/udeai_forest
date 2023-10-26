@@ -79,6 +79,11 @@ Replace `CHOOSE_DEF_FILE.py` with your definition file like `treecover2020.py` o
 
 ## Machine Learning Models
 
+### Drivers and Toolkits
+
+1. Install the drivers `CUDA Toolkit` for NVIDIA GPUs.
+2. Install the `ROCm OpenSource Platform` for AMD GPUs with **SUPPORTED ARCHITECTURES**
+
 ### Installation of ML Dependencies
 
 Be careful, **GPU accelerated tools** implementations are extremely dependant on the OS on which they are installed, all of the console commands listed below assume that you are working on **Linux**. If you are using other OS please refer to the [Official PyTorch Installation Matrix](https://pytorch.org/get-started/locally/)
