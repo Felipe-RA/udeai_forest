@@ -81,10 +81,32 @@ Replace `CHOOSE_DEF_FILE.py` with your definition file like `treecover2020.py` o
 
 ### Installation of ML Dependencies
 
-To install the required dependencies for running the machine learning models, execute the following command:
+Be careful, **GPU accelerated tools** implementations are extremely dependant on the OS on which they are installed, all of the console commands listed below assume that you are working on **Linux**. If you are using other OS please refer to the [Official PyTorch Installation Matrix](https://pytorch.org/get-started/locally/)
+
+To install the required dependencies for running the machine learning models, execute the following commands:
+
+#### General requirements
 
 ```bash
 pip install -r requirements.txt
+```
+
+#### If you will be using CUDA 11.8 (better with Turing series cards and earlier)
+
+```bash
+pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
+```
+
+#### If you will be using CUDA 12.1+ (better with Ampere series cards and later)
+
+```bash
+pip3 install torch torchvision torchaudio
+```
+
+#### **NEW!** AMD Support for PyTorch using ROCm [(Supported GPUs are changing on a regular basis, check here)](https://rocm.docs.amd.com/en/latest/release/gpu_os_support.html#linux-supported-gpus)
+
+```bash
+pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/rocm5.6
 ```
 
 ### Architecture
