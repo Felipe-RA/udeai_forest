@@ -1,0 +1,2 @@
+sudo docker run -it --cap-add=SYS_PTRACE --security-opt seccomp=unconfined --device=/dev/kfd --device=/dev/dri --group-add video --ipc=host --shm-size 16G -v /home/felipera/projects/udeai_forest:/mnt rocm/pytorch:rocm5.7_ubuntu22.04_py3.10_pytorch_2.0.1
+

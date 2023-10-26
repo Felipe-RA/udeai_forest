@@ -1,0 +1,19 @@
+version: '3'
+services:
+  pytorch-container:
+    image: rocm/pytorch:rocm5.7_ubuntu22.04_py3.10_pytorch_2.0.1
+    entrypoint: ["sleep", "infinity"]
+    privileged: true
+    cap_add:
+      - SYS_PTRACE
+    security_opt:
+      - seccomp=unconfined
+    devices:
+      - /dev/kfd
+      - /dev/dri
+    group_add:
+      - video
+    ipc: host
+    shm_size: 16G
+    volumes:
+      - /home/felipera/projects:/projects
