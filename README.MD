@@ -133,6 +133,10 @@ Be aware that running these tests on a CPU is considerably slower. What might ta
 
 ### DataLoader Pipeline for Satellital Imagery
 
+**under construction...**
+
+#### Raster processing using Rasterio
+
 **UNDER CONSTRUCTION...**
 
 ## Dockerization
