@@ -10,7 +10,7 @@ class DatasetDefinition:
         self.dataset_name = dataset_name
 
     def get_dataset_name(self):
-        return self.dataset_name
+        return str("sentinel2rgbmedian2020.py")
     
     def get_gee_image(self, **kwargs):
     
