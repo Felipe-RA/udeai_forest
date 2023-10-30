@@ -5,8 +5,8 @@ from torch.utils.data import DataLoader, TensorDataset
 from torch.optim.lr_scheduler import ReduceLROnPlateau
 from sklearn.model_selection import KFold
 from copy import deepcopy
-from classes.VGGUdea import VGGUdea
-from classes.VGGUdeaWithAdvancedTechniques import VGGUdeaWithAdvancedTechniques
+from ..classes.VGGUdea import VGGUdea
+from ..classes.VGGUdeaWithAdvancedTechniques import VGGUdeaWithAdvancedTechniques
 
 # Generate random data for demonstration
 X = torch.rand((1000, 21, 100, 100))

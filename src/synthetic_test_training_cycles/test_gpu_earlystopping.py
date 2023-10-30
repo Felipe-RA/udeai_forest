@@ -8,8 +8,8 @@ from copy import deepcopy
 from sklearn.model_selection import KFold
 
 
-from classes.VGGUdea import VGGUdea
-from classes.VGGUdeaWithAdvancedTechniques import VGGUdeaWithAdvancedTechniques
+from ..classes.VGGUdea import VGGUdea
+from ..classes.VGGUdeaWithAdvancedTechniques import VGGUdeaWithAdvancedTechniques
 
 # Generate some random data for demonstration purposes
 # Assuming we have 1000 samples, each of shape (21, 100, 100)

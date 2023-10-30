@@ -7,8 +7,8 @@ import torch.nn as nn
 import torch.optim as optim
 from torch.utils.data import DataLoader, TensorDataset
 from torch.optim.lr_scheduler import StepLR
-from classes.VGGUdea import VGGUdea
-from classes.VGGUdeaWithAdvancedTechniques import VGGUdeaWithAdvancedTechniques
+from ..classes.VGGUdea import VGGUdea
+from ..classes.VGGUdeaWithAdvancedTechniques import VGGUdeaWithAdvancedTechniques
 
 # Simulating Sentinel-2 band data: 64 samples, 21 bands, 100x100 pixels
 sentinel_data = torch.rand((64, 21, 100, 100)) * 0.0001  # The values are in the range [0, 0.0001]

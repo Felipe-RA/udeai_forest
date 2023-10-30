@@ -7,8 +7,8 @@ import torch.nn as nn
 import torch.optim as optim
 from torch.utils.data import DataLoader, TensorDataset
 from torch.optim.lr_scheduler import StepLR
-from classes.VGGUdea import VGGUdea
-from classes.VGGUdeaWithAdvancedTechniques import VGGUdeaWithAdvancedTechniques
+from ..classes.VGGUdea import VGGUdea
+from ..classes.VGGUdeaWithAdvancedTechniques import VGGUdeaWithAdvancedTechniques
 
 # Check if GPU is available
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
