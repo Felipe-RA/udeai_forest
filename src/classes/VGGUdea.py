@@ -2,7 +2,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
-from SpectralAttention import SpectralAttention
+from .SpectralAttention import SpectralAttention
 
 class VGGUdea(nn.Module):
     def __init__(self, num_bands, number_out_features=1):
