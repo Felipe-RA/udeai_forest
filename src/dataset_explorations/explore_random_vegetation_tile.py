@@ -28,6 +28,15 @@ def explore_and_visualize_random_tif(folder_path):
 
     with rasterio.open(file_path) as src:
         bands = []
+        #####
+        num_bands = src.count
+        band_descriptions = src.descriptions
+
+        print(f"Number of bands: {num_bands}")
+        for i in range(num_bands):
+            print(f"Band {i + 1}: {band_descriptions[i]}")
+        ###########
+
         for i in range(1, src.count + 1):
             band_data = src.read(i)
             
