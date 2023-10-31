@@ -32,7 +32,6 @@ val_loader = DataLoader(val_dataset, batch_size=32, shuffle=False)
 transform = transforms.Compose([
     transforms.RandomHorizontalFlip(),
     transforms.RandomVerticalFlip(),
-    # You can add more augmentation techniques here
 ])
 
 # Initialize model, optimizer, and loss function
