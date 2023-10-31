@@ -10,3 +10,4 @@ src/__pycache__/VGGUdeaWithAdvancedTechniques.cpython-310.pyc
 X_tensor.pth
 y_tensor.pth
 metadata.json
+trained_models/
