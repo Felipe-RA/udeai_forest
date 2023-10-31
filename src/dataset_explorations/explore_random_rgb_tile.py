@@ -53,7 +53,7 @@ def explore_and_visualize_tif(file_path):
 
 
 
-folder_path = '../../data/sentinel2-rgb-median-2020'
+folder_path = 'data/sentinel2-rgb-median-2020'
 
 
 tif_files = list_tif_files(folder_path)

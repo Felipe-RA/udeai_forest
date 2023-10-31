@@ -60,5 +60,5 @@ def explore_and_visualize_random_tif(folder_path):
             plt.show()
 
 # Specify the folder path and run the function
-folder_path = '../../data/treecover2020.py'
+folder_path = 'data/treecover2020.py'
 explore_and_visualize_random_tif(folder_path)
