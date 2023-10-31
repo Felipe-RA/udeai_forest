@@ -1,73 +1,100 @@
-import numpy as np
-import torch
-import time
+from sklearn.model_selection import KFold
+from sklearn.metrics import mean_squared_error, mean_absolute_percentage_error, mean_absolute_error
 import os
-from sklearn.metrics import mean_absolute_error
-from sklearn.model_selection import train_test_split
-from joblib import dump
-from src.classes.MultipleRegressionModel import MultipleRegressionModel  # Ajusta esta importación según tu estructura de directorios
+import json
+import joblib
+import numpy as np
+import time
+from tqdm import tqdm
+import torch
+import matplotlib.pyplot as plt
 
-# Cargar tensores y convertir a numpy
-X_tensor = torch.load('X_tensor.pth')
-y_tensor = torch.load('y_tensor.pth')
-X = X_tensor.numpy().reshape((X_tensor.shape[0], -1))  # Aplana las imágenes
-y = y_tensor.numpy()
+# Importing the custom model class
+from ..classes.MultipleRegressionModel import MultipleRegressionModel
 
-# División entre entrenamiento y validación
-X_train, X_val, y_train, y_val = train_test_split(X, y, test_size=0.2, random_state=42)
+# Utility functions
+from ..utils import *
 
-# Inicializar modelo
-model = MultipleRegressionModel()
+def main():
+    # Load the data
+    X = torch.load('X_tensor.pth').numpy()
+    y = torch.load('y_tensor.pth').numpy()
+    
+    # Flatten the images
+    X = X.reshape(X.shape[0], -1)
+    
+    # Initialize K-Fold cross-validation
+    kf = KFold(n_splits=5, shuffle=True, random_state=42)
+    
+    # Model hyperparameters
+    hyperparameters_dict = {
+        "fit_intercept": True,
+        "copy_X": True,
+        "n_jobs": -1,  # Use all CPU cores
+        "positive": True  # Enforce positive coefficients
+    }
+    
+    # Initialize variables for cross-validation
+    fold_mae_losses = []
+    fold_rmse_losses = []
+    fold_mape_losses = []
+    
+    # Initialize the model
+    model = MultipleRegressionModel(**hyperparameters_dict)
+    
+    # Create a folder for this specific model training
+    model_type = "MultipleRegression"
+    model_folder = generate_unique_folder(str(model_type))
+    print(f"Folder {model_folder[0]} created at {model_folder[1]}")
+    
+    # Cross-validation loop
+    for fold, (train_index, val_index) in enumerate(tqdm(kf.split(X), desc='KFold Progress')):
+        X_train, X_val = X[train_index], X[val_index]
+        y_train, y_val = y[train_index], y[val_index]
+        
+        plt.hist(y_val, bins=20, edgecolor='black')
+        plt.title('Distribution of Values in y_val')
+        plt.xlabel('Value')
+        plt.ylabel('Frequency')
+        plt.show()
 
-# Inicializar variables para early stopping
-patience = 10
-best_val_loss = float('inf')
-counter = 0
+        # Train the model on the training set
+        start_time = time.time()
+        model.fit(X_train, y_train)
+        end_time = time.time()
+        
+        # Make predictions on the validation set
+        y_pred = model.predict(X_val)
+        
+        # Calculate the MAE loss
+        mae_loss = mean_absolute_error(y_val, y_pred)
+        fold_mae_losses.append(mae_loss)
 
-# Registro del tiempo de inicio
-start_time = time.time()
+        # Calculate the RMSE loss
+        rmse_loss = np.sqrt(mean_squared_error(y_val, y_pred))
+        fold_rmse_losses.append(rmse_loss)
+      
+        # Report for the current fold
+        print(f"\tFold {fold + 1}, Validation MAE Loss: {mae_loss}, RMSE Loss: {rmse_loss}")
+        
+    # Calculate the average and standard deviation of the losses over all folds
+    avg_mae_loss = np.mean(fold_mae_losses)
+    std_mae_loss = np.std(fold_mae_losses)
+    avg_rmse_loss = np.mean(fold_rmse_losses)
+    std_rmse_loss = np.std(fold_rmse_losses)
 
-# Ciclo de entrenamiento
-for epoch in range(100):  # Puedes ajustar el número de épocas
-    model.fit(X_train, y_train)
-    val_pred = model.predict(X_val)
-    val_loss = mean_absolute_error(y_val, val_pred)
+    # Create the report dictionary
+    report_dict = {
+        "Validation MAE Loss (Avg)": avg_mae_loss,
+        "Validation MAE Loss (Std)": std_mae_loss,
+        "Validation RMSE Loss (Avg)": avg_rmse_loss,
+        "Validation RMSE Loss (Std)": std_rmse_loss,
+        "Total Training Time (seconds)": end_time - start_time
+    }
+    
+    
 
-    # Early stopping
-    if val_loss < best_val_loss:
-        best_val_loss = val_loss
-        counter = 0
-        # Guardar el mejor modelo
-        dump(model, 'best_MultipleRegressionModel.pkl')
-    else:
-        counter += 1
-        if counter >= patience:
-            print("Early stopping triggered.")
-            break
+    save_and_report_model_artifacts(report_dict, model, hyperparameters_dict, model_folder, model_type)
 
-# Registro del tiempo de finalización y cálculo del tiempo de entrenamiento
-end_time = time.time()
-training_time = end_time - start_time
-
-# Métricas de desempeño
-mae = mean_absolute_error(y_val, val_pred)
-
-# Generar informe
-report = f"Model: MultipleRegressionModel\nTraining Time: {training_time}s\nMAE: {mae}"
-print(report)
-
-# Guardar el informe en un archivo
-
-# Asegurar que el directorio 'reports' exista
-if not os.path.exists('reports'):
-    os.makedirs('reports')
-
-file_number = 0
-report_filename_base = f"reports/MultipleRegressionModel_report{file_number}.txt"
-
-while os.path.exists(report_filename_base):
-    file_number += 1
-    report_filename_base = f"reports/MultipleRegressionModel_report{file_number}.txt"
-
-with open(report_filename_base, "w") as f:
-    f.write(report)
+if __name__ == "__main__":
+    main()
