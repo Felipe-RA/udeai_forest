@@ -21,6 +21,7 @@ def explore_and_visualize_tif(file_path):
         print(f"Data types: {tuple(src.dtypes)}")
         print(f"Coordinate Reference System: {src.crs}")
         print(f"Number of bands: {src.count}")
+        print("\nMetadata:", src.meta,"\n")
 
         # Visualize each band separately
         for i in range(1, src.count + 1):
@@ -31,11 +32,7 @@ def explore_and_visualize_tif(file_path):
             plt.show()
 
             # Plot histogram for the band
-            print("\nMetadata:", src.meta,"\n")
-            print("Width:", src.width)
-            print("Height:", src.height)
-            print("CRS:", src.crs)
-            print(f"Band shape {band_data.shape} // Band size: {len(band_data)}")
+            print(f"Band shape {band_data.shape}")
             plot_histogram(band_data, f"Histogram for Band {i}")
 
         # Create a composite visualization if the image has at least 3 bands
@@ -53,7 +50,7 @@ def explore_and_visualize_tif(file_path):
 
 
 
-folder_path = 'data/sentinel2-rgb-median-2020'
+folder_path = 'data/sentinel2rgbmedian2020.py'
 
 
 tif_files = list_tif_files(folder_path)
