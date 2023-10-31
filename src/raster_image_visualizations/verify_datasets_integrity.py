@@ -46,7 +46,7 @@ def explore_tif_folders(folder_paths):
 # Initial folder paths, relative to the current script location
 
 tif_dataset_paths = [
-    '../../data/sentinel2-rgb-median-2020',
-    '../../data/treecover2020.py/'
+    'data/sentinel2rgbmedian2020.py',
+    'data/treecover2020.py'
 ]
 explore_tif_folders(tif_dataset_paths)
