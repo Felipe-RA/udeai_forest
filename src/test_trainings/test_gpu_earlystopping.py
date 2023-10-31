@@ -15,7 +15,7 @@ from ..classes.VGGUdeaWithAdvancedTechniques import VGGUdeaWithAdvancedTechnique
 # Assuming we have 1000 samples, each of shape (21, 100, 100)
 # The 21 represents the number of bands
 # The target variable is also randomly generated and lies between 0 and 100
-# Assuming it's a regression problem
+
 X = torch.rand((1000, 21, 100, 100))
 y = torch.randint(0, 101, (1000, 1), dtype=torch.float32)
 
