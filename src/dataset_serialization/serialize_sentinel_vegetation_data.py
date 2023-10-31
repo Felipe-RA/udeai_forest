@@ -12,15 +12,17 @@ def read_and_process_tif_file_for_y(filepath):
         # Read the bands 1 and 3, skipping the empty band 2
         band1, band3 = src.read(1), src.read(3)
         
-        # Apply the transformation to scale the values between 0 and 100 from pixel values
+        # Apply the transformation to scale the values between 0 and 100
         band1 = (band1 / 255.0) * 100
         band3 = (band3 / 255.0) * 100
         
         # Calculate Percent_Vegetation_Coverage and clip it to be between 0 and 100
         percent_vegetation_coverage = np.clip(band1 + band3, 0, 100)
-
         
-        return percent_vegetation_coverage, src.meta
+        # Calculate a single Percent_Vegetation_Coverage value for the entire image (e.g., mean)
+        single_value = np.mean(percent_vegetation_coverage)
+        
+        return single_value, src.meta
 
 
 # Function to read a single .tif file and return as numpy array
@@ -78,7 +80,7 @@ for filename in tqdm(filenames):
 
 # Convert lists to PyTorch tensors
 X_tensor = torch.tensor(np.stack(X_images, axis=0))
-y_tensor = torch.tensor(np.stack(y_images, axis=0), dtype=torch.float64)
+y_tensor = torch.tensor(np.stack(y_images, axis=0), dtype=torch.float32)
 
 # Serialize tensors and save to disk
 torch.save(X_tensor, 'X_tensor.pth')
