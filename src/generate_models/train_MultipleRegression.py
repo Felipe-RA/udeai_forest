@@ -8,6 +8,8 @@ import time
 from tqdm import tqdm
 import torch
 import matplotlib.pyplot as plt
+from sklearn.model_selection import GridSearchCV
+
 
 # Importing the custom model class
 from ..classes.MultipleRegressionModel import MultipleRegressionModel
@@ -24,23 +26,29 @@ def main():
     X = X.reshape(X.shape[0], -1)
     
     # Initialize K-Fold cross-validation
-    kf = KFold(n_splits=5, shuffle=True, random_state=42)
-    
-    # Model hyperparameters
-    hyperparameters_dict = {
-        "fit_intercept": True,
-        "copy_X": True,
-        "n_jobs": -1,  # Use all CPU cores
-        "positive": True  # Enforce positive coefficients
+    kf = KFold(n_splits=2, shuffle=True, random_state=None)
+
+
+
+    param_grid = {
+        'fit_intercept': [True, False],
+        'copy_X': [True, False],
+        'positive': [True, False]
     }
+
+    # Initialize the model with hyperparameter grid
+    model = GridSearchCV(
+                        estimator=MultipleRegressionModel(),
+                        param_grid=param_grid,
+                        n_jobs=2,            # really unstable. move back to 1 if crashing. dont use -1
+                        scoring='neg_mean_absolute_error',  #  minimize MAE
+                        cv=3,                
+                        verbose=3    
+                    )
     
     # Initialize variables for cross-validation
     fold_mae_losses = []
     fold_rmse_losses = []
-    fold_mape_losses = []
-    
-    # Initialize the model
-    model = MultipleRegressionModel(**hyperparameters_dict)
     
     # Create a folder for this specific model training
     model_type = "MultipleRegression"
@@ -52,12 +60,6 @@ def main():
         X_train, X_val = X[train_index], X[val_index]
         y_train, y_val = y[train_index], y[val_index]
         
-        plt.hist(y_val, bins=20, edgecolor='black')
-        plt.title('Distribution of Values in y_val')
-        plt.xlabel('Value')
-        plt.ylabel('Frequency')
-        plt.show()
-
         # Train the model on the training set
         start_time = time.time()
         model.fit(X_train, y_train)
@@ -89,12 +91,13 @@ def main():
         "Validation MAE Loss (Std)": std_mae_loss,
         "Validation RMSE Loss (Avg)": avg_rmse_loss,
         "Validation RMSE Loss (Std)": std_rmse_loss,
-        "Total Training Time (seconds)": end_time - start_time
+        "Total Training Time (seconds)": end_time - start_time,
+        "Best Hyperparameters": model.best_params_
     }
     
     
 
-    save_and_report_model_artifacts(report_dict, model, hyperparameters_dict, model_folder, model_type)
+    save_and_report_model_artifacts(report_dict, model, model.best_params_, model_folder, model_type)
 
 if __name__ == "__main__":
     main()
