@@ -5,7 +5,7 @@
 # Ignore all files in /data directory but keep the README.md
 /data/*
 !/data/README.md
-
+!/data/antioquia.wkt
 
 /trash
 __pycache__/
