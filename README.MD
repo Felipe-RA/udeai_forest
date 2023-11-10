@@ -174,7 +174,7 @@ The models are compatible with PyTorch's `nn` module. They are inspired by the V
 
 ### UPDATED! Implementation
 
-The specific implementation of the models can be found in the [src/classes](src/classes) directory. 
+The specific implementation of the models can be found in the [src/classes](src/classes) directory.
 
 - MultipleRegressionModel.py  
 - ParzenWindowModel.py
@@ -187,7 +187,13 @@ The class `SpectralAttentionMode.py` is used as an attention mechanism for the n
 
 ### [NEW!] THE ANTIOQUIA TRAINING CYCLES
 
-The training cycles are available at `src/generate_models`. The application is made to support multiple models coexisting with each other, a TODO in the future is to allow for any specific model to be called from within a dockerized app (alongside the posibility to train and add a new trained model!)
+The training cycles are available at [src/generate_models](src/generate_models/). The application is made to support multiple models coexisting with each other, a TODO in the future is to allow for any specific model to be called from within a dockerized app (alongside the posibility to train and add a new trained model!)
+
+To better understand the challenges involved on the data adquisition and alignment we **strongly** suggest that you read this support document [attached at this link here or in the file /00_data_extraction_proccess.MD](/00_data_extraction_process.MD).
+
+Nonetheless, [we prepared a link to download the losslessly compressed dataset ready for training](https://drive.google.com/drive/folders/1ZrSY2Q5euIfnwB8RI4-LcLyLbHGZbWx-?usp=sharing).
+
+We recommend that you use this serialized resources if your aim is to **reproduce** the results of this notebook and wish to train the modules with the original data. Since the data size was reduced from `~30GB` down to `~1.9GB`
 
 ### Running the training cycles
 
