@@ -1,0 +1,1 @@
+{"Validation MAE Loss (Avg)": 4.659321223345318, "Validation MAE Loss (Std)": 0.017706437925431473, "Validation RMSE Loss (Avg)": 9.153020081345087, "Validation RMSE Loss (Std)": 0.10166321969176195, "Total Training Time (seconds)": 57.54225420951843, "Best Hyperparameters": {"copy_X": true, "fit_intercept": true, "positive": true}}

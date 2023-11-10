@@ -15,8 +15,8 @@ src/__pycache__/VGGUdeaWithAdvancedTechniques.cpython-310.pyc
 X_tensor.pth
 y_tensor.pth
 metadata.json
-trained_models/*
-!trained_models/MultipleRegression0/
+src/trained_models/*
+!src/trained_models/MultipleRegression0/
 
 
 src/classes/SupportVectorRegressor.py
