@@ -1,8 +1,17 @@
 import torch
 
+
+
+# Change tensor's file name
+
+X_name = "X_tensor.pth"
+y_name = "y_tenshor.pth"
+
+
 # Load the tensors from disk
-x_tensor = torch.load('X_tensor.pth')
-y_tensor = torch.load('y_tensor.pth')
+
+x_tensor = torch.load(X_name)
+y_tensor = torch.load(y_name)
 
 # Print the shapes and data types of the tensors
 print("Shape of X_tensor:", x_tensor.shape)
