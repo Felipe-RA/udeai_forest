@@ -34,6 +34,13 @@
 
   This project aims to generate predictions of the percentage of vegetation cover in Antioquia based on the Sentinel-2 and MOD44B.006 Terra Vegetation datasets. The architecture is designed to accept any number of bands (`num_bands`), but defaults to three bands corresponding to the RGB channels (B4, B3, B2) of Sentinel-2. The Sentinel-2 bands serve as the input to our model, while the target variable (total vegetation cover) is obtained by summing the `Percent_Tree_Cover` and `Percent_NonTree_Vegetation` bands to get `Percent_VegetationCover`.
 
+  **WE STRONGLY SUGGEST THAT YOU READ THESE NOTEBOOKS:**
+
+  - [00_data_extraction_process.MD](/00_data_extraction_process.MD)
+  - [01_data_exploration.ipynb](/01_data_exploration.ipynb) 
+  - [02_training_process.ipynb](/02_training_process.ipynb)
+  - [03_model_application_to_new_data.ipynb](/03_model_application_to_new_data.ipynb)
+
 <br>
 <br>
 
