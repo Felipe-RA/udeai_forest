@@ -21,3 +21,6 @@ src/trained_models/*
 
 src/classes/SupportVectorRegressor.py
 src/generate_models/train_SVR_RBF.py
+y_test_tensor.pth
+X_test_tensor.pth
+metadata_test.json
