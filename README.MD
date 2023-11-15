@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="/images/udeai_forest_modified.png" alt="UDEAI FOREST LOGO" />
+  <img src="/images/udeai_forest-modified.png" alt="UDEAI FOREST LOGO" />
 </p>
 
 
