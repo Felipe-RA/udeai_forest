@@ -1,6 +1,7 @@
-<div align="center">
-    ![UDEAI FOREST LOGO](/images/udeai_forest.png)
-</div>
+<p align="center">
+  <img src="/images/udeai_forest.png" alt="UDEAI FOREST LOGO" />
+</p>
+
 
 
 <br>
