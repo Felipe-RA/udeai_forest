@@ -144,3 +144,72 @@ def save_and_report_model_artifacts(report_dict, model, hyperparameters_dict, mo
     hyperparameter_optimization_log_filename = save_hyperparameter_optimization_log(model, model_folder[1], model_type, folder_number_counter)
     
     print(f"\nHyperparameter optimization log saved at model folder.\n Filename: {hyperparameter_optimization_log_filename}.")
+
+
+    import numpy as np
+import matplotlib.pyplot as plt
+
+def scatter_plot_predictions(y_true, y_pred, title, color_map = "inferno"):
+    """
+    This function plots a scatter plot of predictions vs ground truth values.
+
+    Parameters:
+    y_true (array-like): The ground truth values.
+    y_pred (array-like): The predicted values.
+    title (str): The title for the plot.
+    color_map (str): The color map to use for the plot. Default is 'inferno'.
+                     Various color maps can be used to better represent the data.
+                     For detailed information about different color maps and their
+                     recommended usages, refer to the matplotlib colormap documentation:
+                     https://matplotlib.org/stable/tutorials/colors/colormaps.html
+    """
+    # Calculate absolute errors
+    errors = np.abs(y_pred - y_true)
+
+    # Create scatter plot with color based on error magnitude
+    plt.scatter(y_true, y_pred, c=errors, cmap=color_map, alpha=0.5, vmin=0, vmax=100)
+
+    # Add a color bar with the specified range from 0 to 100
+    cbar = plt.colorbar(label='Absolute Error')
+    cbar.set_ticks(np.arange(0, 101, 10))  # Set tick marks from 0 to 100 at intervals of 10
+
+    # Add a line for perfect predictions
+    plt.plot([0, 100], [0, 100], 'r--', label='Perfect Prediction')
+
+    # Adding percentiles as horizontal lines
+    for i in range(10, 101, 10):
+        plt.axhline(i, color='lightgrey', linestyle='--', linewidth=0.5)
+
+    # Axes and title
+    plt.xlabel('Ground Truth (y_true)')
+    plt.ylabel('Predictions (y_pred)')
+    plt.title(title)
+
+    # Show the plot
+    plt.show()
+
+
+def plot_error_distribution(y_true, y_pred, title="Error Distribution Histogram",n_bins=11):
+    """
+    This function plots a histogram representing the distribution of absolute errors as a percentage of y_true.
+
+    Parameters:
+    y_true (array-like): The ground truth values.
+    y_pred (array-like): The predicted values.
+    title (str): The title for the histogram.
+    """
+    errors = np.abs(y_pred - y_true)  # Calculate absolute errors
+    error_percent = (errors / y_true) * 100  # Convert errors to percentage of y_true
+    
+    # Define the bins for the histogram
+    bins = np.linspace(0, 100, n_bins)  # 0% to 100% with 10% intervals
+
+    # Create histogram
+    plt.figure(figsize=(10, 6))
+    plt.hist(error_percent, bins=bins, color='skyblue', edgecolor='black')
+    plt.xlabel('Error Percentage')
+    plt.ylabel('Frequency')
+    plt.title(title)
+    plt.xticks(bins)
+    plt.show()
+
