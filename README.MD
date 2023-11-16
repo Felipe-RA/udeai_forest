@@ -1,3 +1,17 @@
+<p align="center">
+  <img src="/images/udeai_forest-modified.png" alt="UDEAI FOREST LOGO" />
+</p>
+
+
+
+<br>
+<br>
+
+---
+
+<br>
+<br>
+
 # Análisis y predicción de cobertura vegetal en Antioquia con Imágenes satelitales de Sentinel-2
 
 ## Table of Contents
