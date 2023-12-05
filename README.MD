@@ -1,3 +1,8 @@
+[Paper Preprint](/data/paper_preprint.pdf)
+
+<br>
+<br>
+
 <p align="center">
   <img src="/images/udeai_forest-modified.png" alt="UDEAI FOREST LOGO" />
 </p>
