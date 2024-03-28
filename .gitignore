@@ -24,3 +24,7 @@ src/generate_models/train_SVR_RBF.py
 y_test_tensor.pth
 X_test_tensor.pth
 metadata_test.json
+y_test_tensor_visuals.pth
+y_tensor_2019_visuals.pth
+X_test_tensor_visuals.pth
+X_tensor_2019_visuals.pth
