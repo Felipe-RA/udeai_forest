@@ -50,8 +50,15 @@ metadata_list = []
 ### ---------------------------- ###
 
 # Directory paths
-sentinel_dir = 'data/sentinel2rgbmedian2020.py'  # Replace with your actual directory
-treecover_dir = 'data/treecover2020.py'  # Replace with your actual directory
+sentinel_dir = 'data/sentinel2rgbmedian2019.py'  # Replace with your actual directory
+treecover_dir = 'data/treecover2019.py'  # Replace with your actual directory
+
+if sentinel_dir is None:
+    sentinel_dir = str(input("Enter the directory path for the SENTINEL-2 images: EXAMPLE: data/sentinel2rgbmedian2019.py\n"))
+
+if treecover_dir is None:
+    treecover_dir = str(input("Enter the directory path for the Tree Cover images: EXAMPLE: data/treecover2019.py\n"))
+
 
 ### ---------------------------- ###
 

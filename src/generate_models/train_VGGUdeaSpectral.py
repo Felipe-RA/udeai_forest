@@ -58,7 +58,7 @@ def main():
         'max_epochs': [5, 10, 20]
     }
 
-    model = RandomizedSearchCV(net, param_distributions=param_dist, n_iter=10, cv=3, verbose=3, random_state=42, scoring='neg_mean_absolute_error')
+    model = RandomizedSearchCV(net, param_distributions=param_dist, n_iter=50, cv=5, verbose=3, random_state=None, scoring='neg_mean_absolute_error')
 
     # Train the model
     start_time = time.time()

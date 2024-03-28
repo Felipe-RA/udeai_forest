@@ -5,7 +5,7 @@ import torch
 # Change tensor's file name
 
 X_name = "X_tensor.pth"
-y_name = "y_tenshor.pth"
+y_name = "y_tensor.pth"
 
 
 # Load the tensors from disk
