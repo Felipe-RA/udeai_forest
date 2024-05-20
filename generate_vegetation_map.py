@@ -160,8 +160,14 @@ def generate_predictions_and_visualizations(data_dir, model_path, output_dir, en
                     "geometry": box(*src.bounds),
                     "prediction": prediction
                 }
+
                 new_gdf = gpd.GeoDataFrame([new_data], columns=["id", "geometry", "prediction"], geometry='geometry')
-                results_gdf = pd.concat([results_gdf, new_gdf], ignore_index=True)
+                
+                if results_gdf.empty:
+                    results_gdf = new_gdf
+                else:
+                    results_gdf = pd.concat([results_gdf, new_gdf], ignore_index=True)
+
 
                 if enable_tiles:
                     save_prediction_tile(prediction, src.meta, prediction_tiles_dir, f'pred_{filename}')
@@ -223,7 +229,8 @@ if __name__ == "__main__":
                 'label': "Percentage of Vegetation",
                 'orientation': "horizontal"
             },
-            style_kwds={'color': 'black', 'fillOpacity': 0.7, 'weight': 0.5}
+            style_kwds={'color': 'black', 'fillOpacity': 0.7, 'weight': 0.0}  # Set weight to 0 to hide borders
+
         )
 
         if not os.path.exists(map_directory):
