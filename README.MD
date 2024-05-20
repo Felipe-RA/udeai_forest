@@ -72,6 +72,39 @@
 <br>
 <br>
 
+## Docker Service
+
+We have a `DockerFile` available to serve the model with a `FastAPI` endpoint. You can use it by:
+
+1. Installing with:
+
+```bash
+docker build -t udeaiforestimage:latest .
+```
+
+2. Run the container, be sure to mount a volume for the data on which you are going to run inferences. It must be in the same directory as the `DockerFIle`
+
+```bash
+docker run -p 8000:8000 -v $(pwd)/data:/app/data -v $(pwd)/app/html_maps:/app/html_maps udeaiforestimage:latest
+```
+
+This will create a volume for your data and another one for your html maps
+
+3. Now, you can go to [http://localhost:8000/form](http://localhost:8000/form) to generate a map with a specific Model and a Data Directory. LIke this:
+
+![image](images/docker_form.png)
+
+> Be ready to wait 15-20 min for the model to predict and make the map for each new dataset. You can see a loading bar in the console where you launched the docker.
+
+![image](images/docker_form_loading.png)
+
+4. You can view any map using the `def` of its dataset when using the `view-map` endpoint. Like this:
+
+```url
+http://localhost:8000/view-map/sentinel2rgbmedian2020.py
+```
+
+![image](images/docker_view_map.png)
 
 ## Installation
 
