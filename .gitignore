@@ -30,4 +30,5 @@ X_test_tensor_visuals.pth
 X_tensor_2019_visuals.pth
 credentials.json
 nev_scripts.txt
-html_maps
+html_maps/data/sentinel2rgbmedian2020.py/vegetation_map.html
+html_maps/sentinel2rgbmedian2020.py/vegetation_map.html
